@@ -8,11 +8,15 @@ DOWN = 0;
 LEFT = 1;
 RIGHT = 2;
 UP = 3;
+ENTER = 13;
+ESC = 27;
+
 DEBUG = true;
 
 //Define static locations
 MapLocation = 'map/';
 ImageLocation = 'images/';
+var state = 'menu';
 
 function div(a, b) {
     return Math.round(a / b - 0.5);
@@ -36,6 +40,7 @@ window.onload = function() {
     // initialize global objects
     activeKey = null;
     map = new Map("test");
+    menu = new Menu("title");
     player = new Player("player", 8, 8, DOWN);
     map.addCharacter(player);
     // start mainloop
@@ -51,7 +56,29 @@ function mainLoop() {
 
     // draw
     //offset = calcOffset(player);
-    map.draw(ctx, player.px - WIDTH / 2, player.py - HEIGHT / 2);
+    if (state == 'active') {
+        map.draw(ctx, player.px - WIDTH / 2, player.py - HEIGHT / 2);
+        /**Enter MainMenu**/
+        if (activeKey == ESC) {
+            state = 'menu';
+        }
+    }
+    if (state == 'menu') {
+        menu.draw(ctx);
+        /**Exit Menu**/
+        if (activeKey == ENTER) {
+            state = 'active';
+        }
+    }
+    if (DEBUG) {
+        ctx.fillStyle = "white";
+        ctx.globalAlpha = 0.50;
+        ctx.fillRect(0, 0, 100, 70);
+        ctx.globalAlpha = 1.0;
+        ctx.fillStyle = "black";
+        ctx.font = "20px Arial";
+        ctx.fillText(map.name + ": " + player.x + "," + player.y, 10, 50);
+    }
     //player.draw(ctx, offset);
 }
 
@@ -68,7 +95,6 @@ document.addEventListener('keyup', (event) => {
         activeKey = i;
     }
 });
-
 
 // calculate player-map offset
 function calcOffset(player) {

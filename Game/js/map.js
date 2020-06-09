@@ -80,16 +80,6 @@ Map.prototype.draw = function (ctx, x, y) {
     });
 
     ctx.drawImage(this.layer3, GS - x, GS - y);
-
-    if (DEBUG) {
-        ctx.fillStyle = "white";
-        ctx.globalAlpha = 0.50;
-        ctx.fillRect(0, 0, 100, 70);
-        ctx.globalAlpha = 1.0;
-        ctx.fillStyle = "black";
-        ctx.font = "20px Arial";
-        ctx.fillText(this.name + ": " + player.x + "," + player.y, 10, 50);
-    }
 }
 /**
  * Add character to map
