@@ -40,7 +40,7 @@ window.onload = function() {
     // initialize global objects
     activeKey = null;
     map = new Map("test");
-    menu = new Menu("title");
+    menu = new MainMenu("title");
     player = new Player("player", 8, 8, DOWN);
     map.addCharacter(player);
     // start mainloop
