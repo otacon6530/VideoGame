@@ -55,17 +55,20 @@ function mainLoop() {
     //player.draw(ctx, offset);
 }
 
-// key management
-document.onkeydown = function(e) {
-    activeKey = e.which;
-    e.preventDefault();
-}
-
-document.onkeyup = function(e) {
-    
+/**Input**/
+keysPressed = {};
+document.addEventListener('keydown', (event) => {
+    keysPressed[event.which] = true;
+    activeKey = event.which;
+});
+document.addEventListener('keyup', (event) => {
+    delete keysPressed[event.which];
     activeKey = null;
-    e.preventDefault();
-}
+    for (let i in keysPressed) {
+        activeKey = i;
+    }
+});
+
 
 // calculate player-map offset
 function calcOffset(player) {
