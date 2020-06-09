@@ -17,6 +17,9 @@ DEBUG = true;
 MapLocation = 'map/';
 ImageLocation = 'images/';
 var state = 'menu';
+var settingsjson = {"Language": "English"};
+var languagesjson = { "English": "En_en.json" };
+var En_enjson = { "Settings": "Settings", "Save": "Save"};
 
 function div(a, b) {
     return Math.round(a / b - 0.5);
