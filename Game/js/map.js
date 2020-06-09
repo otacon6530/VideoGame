@@ -1,133 +1,128 @@
+/**
+ * handles the loading and saving of maps.
+ *
+ * @author Michael Stephens
+ */
 function Map(name) {
-    this.name = name;
-    this.row = -1;
-    this.col = -1;
-    this.defaultTile = 0;
-    this.data = null;
-    this.charas = [];  // characters on this map
-
-    // images are class property
-    Map.images = new Array(256);
-    for (var i = 0; i < 256; i++) {
-        Map.images[i] = new Image();
-    }
-    Map.images[0].src = "images/grass.png";
-    Map.images[1].src = "images/water.png";
-    Map.images[2].src = "images/forest.png";
-    Map.images[3].src = "images/hill.png";
-    Map.images[4].src = "images/mountain.png";
-
+    this.row;
+    this.col;
+    this.layer1location;
+    this.layer1 = new Image();
+    this.layer3location;
+    this.layer3 = new Image();
+    this.character = [];
+    this.collision = [[]]; 
+    this.defaultcollision = [[]];
+    this.name;
     // load map data
-    this.load("map/" + name + ".map");
-
-    // load event data
-    this.loadEvent("map/" + name + ".evt");
+    this.load(MapLocation + name + '.map');
 }
 
-Map.prototype.load = function(filename) {
+/**
+ * load Map object from file into memory
+ *
+ * @param filename path to chunk object file to be loaded.
+ */
+Map.prototype.load = function (filename) {
     // load map file
     var httpObj = $.ajax({
         url: filename,
-        async: false  // synchronous (wait until file is loaded)
+        async: false // synchronous (wait until file is loaded)
     });
-    var lines = httpObj.responseText.split("\n");
-    // the number of row and column
-    var temp = lines[0].split(" ");
-    this.row = parseInt(temp[0]);
-    this.col = parseInt(temp[1]);
-    // default map tile value
-    this.defaultTile = parseInt(lines[1]);
-    // map data
-    this.data = new Array(this.row);
-    for (var i = 0; i < this.row; i++) {
-        this.data[i] = new Array(this.col);
-        for (var j = 0; j < this.col; j++) {
-            // map data starts from lines[2]
-            this.data[i][j] = parseInt(lines[i+2][j]);
-        }
-    }
+    var map = JSON.parse(httpObj.responseText);
+    
+    this.row = map.row;
+    this.col = map.col;
+    this.layer1location = map.layer1location;
+    this.layer1.src = map.layer1location;
+    this.layer3location = map.layer3location;
+    this.layer3.src = map.layer3location;
+    //this.character = map.character;
+    this.collision = map.collision;
+    this.defaultcollision = map.defaultcollision;
+    this.name = map.name;
+
 }
 
-Map.prototype.loadEvent = function(filename) {
-    // load event file
-    var httpObj = $.ajax({
-        url: filename,
-        async: false
+/**
+ * Update Characters on Map
+ *
+ * @param ctx canvas being drawn on
+ * @param offset position of player on map
+ */
+Map.prototype.update = function () {
+
+    //Draw Characters
+    this.character.forEach(char => {
+        char.update(this);
     });
-    var lines = httpObj.responseText.split("\n");
-    for (var i = 0; i < lines.length - 1; i++) {
-        if (lines[i][0] == "#") continue;  // comment line
-        var data = lines[i].split("\t");
-        var eventType = data[0];
-        if (eventType == "CHARA") {
-            this.createChara(data);
-        }
-    }
 }
 
-Map.prototype.update = function() {
-    // update characters on this map
-    for (var i = 0; i < this.charas.length; i++) {
-        this.charas[i].update(this);
+/**
+ * draw the map based on player position
+ *
+ * @param ctx canvas being drawn on
+ * @param offset position of player on map
+ */
+Map.prototype.draw = function (ctx, x, y) {
+    this.update();
+
+    //Draw background backfill image
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+    //Draw layer1
+    ctx.drawImage(this.layer1, GS - x, GS - y);
+
+    //Draw Characters
+    this.character.forEach(char => {
+        char.draw(ctx, x, y) 
+    });
+
+    ctx.drawImage(this.layer3, GS - x, GS - y);
+
+    if (DEBUG) {
+        ctx.fillStyle = "white";
+        ctx.globalAlpha = 0.50;
+        ctx.fillRect(0, 0, 100, 70);
+        ctx.globalAlpha = 1.0;
+        ctx.fillStyle = "black";
+        ctx.font = "20px Arial";
+        ctx.fillText(this.name + ": " + player.x + "," + player.y, 10, 50);
     }
 }
-
-Map.prototype.draw = function(ctx, offset) {
-    offsetx = offset[0];
-    offsety = offset[1];
-
-    // calculate the range of map
-    startx = div(offsetx, GS);
-    endx = startx + div(WIDTH, GS) + 1;
-    starty = div(offsety, GS);
-    endy = starty + div(HEIGHT, GS) + 1;
-    for (var y = starty; y < endy; y++) {
-        for (var x = startx; x < endx; x++) {
-            // draw default image at the outside of map
-            if (x < 0 || y < 0 || x > this.col-1 || y > this.row-1) {
-                ctx.drawImage(Map.images[this.defaultTile], x*GS-offsetx, y*GS-offsety);
-            } else {
-                ctx.drawImage(Map.images[this.data[y][x]], x*GS-offsetx, y*GS-offsety);
-            }
-        }
-    }
-
-    // draw characters on this map
-    for (var i = 0; i < this.charas.length; i++) {
-        this.charas[i].draw(ctx, offset);
-    }
+/**
+ * Add character to map
+ *
+ * @param ctx canvas being drawn on
+ * @param offset position of player on map
+ */
+Map.prototype.addCharacter = function (character) {
+    this.character.push(character);
 }
-
-Map.prototype.isMovable = function(x, y) {
-    if (x < 0 || x > this.col-1 || y < 0 || y > this.row-1) {
+/**
+ * collision check
+ *
+ * @param x map position on x axis
+ * @param offset map position on y axis
+ */
+Map.prototype.collisionCheck = function (x, y) {
+    x = x - 1;
+    y = y - 1;
+        if (x <= this.col - 1 && x >= 0 && y <= this.row - 1 && y >= 0 && this.collision[x][y] == 0) {
+        return true;
+    } else {
         return false;
     }
-    // cannot move at sea(1) and mountan(4) tile
-    if (this.data[y][x] == 1 || this.data[y][x] == 4) {
-        return false;
-    }
-
-    // cannot move to character cell
-    for (var i = 0; i < this.charas.length; i++) {
-        if (this.charas[i].x == x && this.charas[i].y == y) {
-            return false;
-        }
-    }
-
-    return true;
 }
 
-Map.prototype.addChara = function(chara) {
-    this.charas.push(chara);
-}
+/**
+ * collision check
+ *
+ * @param ctx canvas being drawn on
+ * @param offset position of player on map
+ */
 
-Map.prototype.createChara = function(data) {
-    var name = data[1];
-    var x = parseInt(data[2]);
-    var y = parseInt(data[3]);
-    var direction = parseInt(data[4]);
-    var moveType = parseInt(data[5]);
-    var message = data[6];
-    var chara = new Character(name, x, y, direction, moveType, message);
-    this.addChara(chara);
+Map.prototype.resetCollision = function (x, y) {
+    this.collision[x - 1][y - 1] = this.defaultcollision[x - 1][y - 1];
 }

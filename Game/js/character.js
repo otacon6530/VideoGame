@@ -47,10 +47,14 @@ Character.prototype.update = function(map) {
     }
 }
 
-Character.prototype.draw = function(ctx, offset) {
-    offsetx = offset[0];
-    offsety = offset[1];
-    var no = div(this.frame, this.animcycle) % 4
+Character.prototype.draw = function(ctx, x, y) {
+    offsetx = this.px - WIDTH / 2;
+    offsety = this.py - HEIGHT / 2;
+    if (this.moving) {
+        var no = div(this.frame, this.animcycle) % 4;
+    } else {
+        var no = div(this.frame, this.animcycle) % 1;
+    }
     ctx.drawImage(Character.images[this.name], no*GS, this.direction*GS, GS, GS,
                   this.px-offsetx, this.py-offsety, GS, GS);
 }
@@ -58,28 +62,28 @@ Character.prototype.draw = function(ctx, offset) {
 Character.prototype.moveStart = function(dir, map) {
     if (dir == LEFT) {
         this.direction = LEFT;
-        if (map.isMovable(this.x-1, this.y)) {
+        if (map.collisionCheck(this.x-1, this.y)) {
             this.vx = - this.speed;
             this.vy = 0;
             this.moving = true;
         }
     } else if (dir == UP) {
         this.direction = UP;
-        if (map.isMovable(this.x, this.y-1)) {
+        if (map.collisionCheck(this.x, this.y-1)) {
             this.vx = 0;
             this.vy = - this.speed;
             this.moving = true;
         }
     } else if (dir == RIGHT) {
         this.direction = RIGHT;
-        if (map.isMovable(this.x+1, this.y)) {
+        if (map.collisionCheck(this.x+1, this.y)) {
             this.vx = this.speed;
             this.vy = 0;
             this.moving = true;
         }
     } else if (dir == DOWN) {
         this.direction = DOWN;
-        if (map.isMovable(this.x, this.y+1)) {
+        if (map.collisionCheck(this.x, this.y+1)) {
             this.vx = 0;
             this.vy = this.speed;
             this.moving = true;
