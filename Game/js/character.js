@@ -48,8 +48,8 @@ Character.prototype.update = function(map) {
 }
 
 Character.prototype.draw = function(ctx, x, y) {
-    offsetx = this.px - WIDTH / 2;
-    offsety = this.py - HEIGHT / 2;
+    offsetx = x;
+    offsety = y;
     if (this.moving) {
         var no = div(this.frame, this.animcycle) % 4;
     } else {
@@ -66,6 +66,7 @@ Character.prototype.moveStart = function(dir, map) {
             this.vx = - this.speed;
             this.vy = 0;
             this.moving = true;
+            map.resetCollision(this.x, this.y);
         }
     } else if (dir == UP) {
         this.direction = UP;
@@ -73,6 +74,7 @@ Character.prototype.moveStart = function(dir, map) {
             this.vx = 0;
             this.vy = - this.speed;
             this.moving = true;
+            map.resetCollision(this.x, this.y);
         }
     } else if (dir == RIGHT) {
         this.direction = RIGHT;
@@ -80,6 +82,7 @@ Character.prototype.moveStart = function(dir, map) {
             this.vx = this.speed;
             this.vy = 0;
             this.moving = true;
+            map.resetCollision(this.x, this.y);
         }
     } else if (dir == DOWN) {
         this.direction = DOWN;
@@ -87,6 +90,7 @@ Character.prototype.moveStart = function(dir, map) {
             this.vx = 0;
             this.vy = this.speed;
             this.moving = true;
+            map.resetCollision(this.x, this.y);
         }
     }
 }

@@ -19,7 +19,7 @@ ImageLocation = 'images/';
 var state = 'menu';
 var settingsjson = {"Language": "English"};
 var languagesjson = { "English": "En_en.json" };
-var En_enjson = { "Settings": "Settings", "Save": "Save"};
+var En_enjson = { "PressEnter": "Press Enter to Start"};
 
 function div(a, b) {
     return Math.round(a / b - 0.5);
@@ -44,8 +44,11 @@ window.onload = function() {
     activeKey = null;
     map = new Map("test");
     menu = new MainMenu("title");
+    char = new Character("king", 8, 9, DOWN,"","hi");
+    map.addCharacter(char);
     player = new Player("player", 8, 8, DOWN);
     map.addCharacter(player);
+    
     // start mainloop
     setInterval('mainLoop()', 16);
 
@@ -82,7 +85,6 @@ function mainLoop() {
         ctx.font = "20px Arial";
         ctx.fillText(map.name + ": " + player.x + "," + player.y, 10, 50);
     }
-    //player.draw(ctx, offset);
 }
 
 /**Input**/
@@ -98,10 +100,3 @@ document.addEventListener('keyup', (event) => {
         activeKey = i;
     }
 });
-
-// calculate player-map offset
-function calcOffset(player) {
-    var offsetx = player.px - WIDTH / 2;
-    var offsety = player.py - HEIGHT / 2;
-    return [offsetx, offsety];
-}

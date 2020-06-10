@@ -29,7 +29,7 @@ Menu.prototype.draw = function (ctx) {
     ctx.fillStyle = "white";
     ctx.font = "20px Arial";
     ctx.globalAlpha = this.frame%100/100;
-    ctx.fillText("Press Enter to Start", WIDTH / 2 - 100, HEIGHT / 2);
+    ctx.fillText(En_enjson["PressEnter"], WIDTH / 2 - 100, HEIGHT / 2);
     ctx.globalAlpha = 1;
     this.frame += 1;
 }

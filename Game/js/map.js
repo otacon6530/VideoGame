@@ -57,7 +57,6 @@ Map.prototype.update = function () {
         char.update(this);
     });
 }
-
 /**
  * draw the map based on player position
  *
@@ -74,36 +73,61 @@ Map.prototype.draw = function (ctx, x, y) {
     //Draw layer1
     ctx.drawImage(this.layer1, GS - x, GS - y);
 
-    //Draw Characters
+    //Draw Characters on layer 2
     this.character.forEach(char => {
-        char.draw(ctx, x, y) 
+        char.draw(ctx, x, y);
     });
 
+    //Draw layer3
     ctx.drawImage(this.layer3, GS - x, GS - y);
 }
 /**
  * Add character to map
  *
- * @param ctx canvas being drawn on
- * @param offset position of player on map
+ * @param character character object to add to map
  */
 Map.prototype.addCharacter = function (character) {
+ 
     this.character.push(character);
 }
 /**
  * collision check
  *
  * @param x map position on x axis
- * @param offset map position on y axis
+ * @param y map position on y axis
  */
-Map.prototype.collisionCheck = function (x, y) {
-    x = x - 1;
-    y = y - 1;
-        if (x <= this.col - 1 && x >= 0 && y <= this.row - 1 && y >= 0 && this.collision[x][y] == 0) {
-        return true;
+Map.prototype.collisionCheck = function (x1, y1) {
+    x = x1 - 1;
+    y = y1 - 1;
+    ret = true;
+    if (x <= this.col - 1 && x >= 0 && y <= this.row - 1 && y >= 0 && this.collision[x][y] == 0) {
+
+        this.character.forEach(char => {
+            if (char.x == x1 && char.y == y1) {
+                ret = false;
+            }
+        });
+        return ret
     } else {
         return false;
     }
+}
+
+/**
+ * collision check
+ *
+ * @param x map position on x axis
+ * @param y map position on y axis
+ */
+Map.prototype.charCollisionCheck = function (x1, y1) {
+    x = x1 - 1;
+    y = y1 - 1;
+        this.character.forEach(char => {
+            if (char.x == x1 && char.y == y1) {
+                ret = char;
+            }
+        });
+    return ret;
 }
 
 /**
@@ -114,5 +138,7 @@ Map.prototype.collisionCheck = function (x, y) {
  */
 
 Map.prototype.resetCollision = function (x, y) {
-    this.collision[x - 1][y - 1] = this.defaultcollision[x - 1][y - 1];
+    x = x - 1;
+    y = y - 1;
+    this.collision[x][y] = this.defaultcollision[x][y];
 }

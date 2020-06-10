@@ -5,7 +5,7 @@ function Player(name, x, y, dir) {
 
 Player.prototype = new Character();
 
-Player.prototype.update = function(map) {
+Player.prototype.update = function (map) {
     this.frame += 1;
 
     // continue moving until player fits in the fixed cell
@@ -30,5 +30,19 @@ Player.prototype.update = function(map) {
         this.moveStart(RIGHT, map);
     } else if (activeKey == 40) {
         this.moveStart(DOWN, map);
+    } else if (activeKey == ENTER) {
+        if (this.direction == LEFT) {
+            char = map.charCollisionCheck(this.x - 1, this.y);
+                console.log(char.message);
+        } else if (this.direction == UP) {
+            char = map.charCollisionCheck(this.x, this.y - 1);
+                console.log(char.message);
+        } else if (this.direction == RIGHT) {
+            char = map.charCollisionCheck(this.x + 1, this.y);
+                console.log(char.message);
+        } else if (this.direction == DOWN) {
+            char = map.charCollisionCheck(this.x, this.y + 1);
+                console.log(char.message);
+        }
     }
 }
