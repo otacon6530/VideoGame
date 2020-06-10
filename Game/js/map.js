@@ -1,5 +1,4 @@
 /**
- * handles the loading and saving of maps.
  *
  * @author Michael Stephens
  */

@@ -53,7 +53,7 @@ window.onload = function() {
     setInterval('mainLoop()', 16);
 
 }
-
+var audio = new Audio('music/castle.wav');
 function mainLoop() {
     var ctx = document.getElementById('canvas').getContext('2d');
 
@@ -67,6 +67,9 @@ function mainLoop() {
         /**Enter MainMenu**/
         if (activeKey == ESC) {
             state = 'menu';
+            audio.pause();
+            audio = new Audio('music/field.wav');
+            audio.play();
         }
     }
     if (state == 'menu') {
@@ -74,6 +77,9 @@ function mainLoop() {
         /**Exit Menu**/
         if (activeKey == ENTER) {
             state = 'active';
+            audio.pause();
+            audio = new Audio('music/castle.wav');
+            audio.play();
         }
     }
     if (DEBUG) {
