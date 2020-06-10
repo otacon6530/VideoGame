@@ -78,10 +78,15 @@ function mainLoop() {
         if (activeKey == ENTER) {
             state = 'active';
             audio.pause();
-            audio = new Audio('music/castle.wav');
+            audio = new Audio('music/download.wav');
             audio.play();
         }
     }
+
+    if (!isPlaying(audio)) {
+        audio.play();
+    } 
+
     if (DEBUG) {
         ctx.fillStyle = "white";
         ctx.globalAlpha = 0.50;
@@ -106,3 +111,5 @@ document.addEventListener('keyup', (event) => {
         activeKey = i;
     }
 });
+
+function isPlaying(audelem) { return !audelem.paused; }
