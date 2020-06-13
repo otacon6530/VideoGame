@@ -13,7 +13,6 @@ export default class Player extends Character {
   }
   update(map, deltaTime) {
     this.frame += 1;
-
     // continue moving until player fits in the fixed cell
     if (this.moving === true) {
       this.px += this.vx;
@@ -27,13 +26,13 @@ export default class Player extends Character {
       }
     }
     // activeKey defined at main.js
-    if (this.activeKey === 37) {
+    if (this.activeKey === 37 || this.activeKey === 65) {
       this.moveStart(LEFT, map);
-    } else if (this.activeKey === 38) {
+    } else if (this.activeKey === 38 || this.activeKey === 87) {
       this.moveStart(UP, map);
-    } else if (this.activeKey === 39) {
+    } else if (this.activeKey === 39 || this.activeKey === 68) {
       this.moveStart(RIGHT, map);
-    } else if (this.activeKey === 40) {
+    } else if (this.activeKey === 40 || this.activeKey === 83) {
       this.moveStart(DOWN, map);
     }
   }

@@ -2,7 +2,15 @@ import Character from "./character.js";
 import Player from "./player.js";
 import Map from "./map.js";
 import InputHandler from "./input.js";
+import Menu from "./menu.js";
+
 const DOWN = 0;
+
+const GAMESTATE = {
+  RUNNING: 0,
+  MAINMENU: 1
+};
+
 export default class Game {
   constructor(gameWidth, gameHeight) {
     this.GS = 32;
@@ -15,23 +23,32 @@ export default class Game {
     this.player = {};
   }
   start() {
+    this.gamestate = GAMESTATE.MAINMENU;
+    new InputHandler(this);
+    this.menu = new Menu(this, "test");
     this.map = new Map(this, "test");
     let char = new Character(this, "king", 8, 9, DOWN, "", "hi");
     this.map.addCharacter(char);
     this.player = new Player(this, "player", 8, 8, DOWN, "", "hi");
     this.map.addCharacter(this.player);
-    new InputHandler(this.player);
   }
   update(deltaTime) {
-    this.map.update(deltaTime);
+    if (this.gamestate === GAMESTATE.RUNNING) {
+      this.player.activeKey = this.activeKey;
+      this.map.update(this, deltaTime);
+    } else {
+      this.menu.update(this);
+    }
   }
   draw(ctx) {
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, this.gameWidth, this.gameHeight);
-    let x = this.player.px - this.gameWidth / 2;
-    let y = this.player.py - this.gameHeight / 2;
-
-    this.map.draw(ctx, x, y);
+    this.menu.draw(ctx);
+    if (this.gamestate === GAMESTATE.RUNNING) {
+      let x = this.player.px - this.gameWidth / 2;
+      let y = this.player.py - this.gameHeight / 2;
+      this.map.draw(ctx, x, y);
+    } else {
+      this.menu.draw(ctx);
+    }
   }
   div(a, b) {
     return Math.round(a / b - 0.5);

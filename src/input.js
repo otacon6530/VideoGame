@@ -1,16 +1,16 @@
 export default class InputHandler {
-  constructor(player) {
+  constructor(game) {
     this.keysPressed = {};
     this.activeKey = 0;
     document.addEventListener("keydown", event => {
       this.keysPressed[event.which] = true;
-      player.activeKey = event.which;
+      game.activeKey = event.which;
     });
     document.addEventListener("keyup", event => {
       delete this.keysPressed[event.which];
-      player.activeKey = null;
+      game.activeKey = null;
       for (let i in this.keysPressed) {
-        player.activeKey = Number(i);
+        game.activeKey = Number(i);
       }
     });
   }
