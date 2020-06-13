@@ -1,6 +1,6 @@
 # HTML5 Canvas 2d RPG Game Engine
 
-A game engine for 2d RPG game working through HTML5 Canvas and Javascript 
+A game engine for 2d RPG game working through HTML5 Canvas and Javascript
 
 ## Getting Started
 
@@ -16,11 +16,11 @@ Copy contents of game folder to webserver.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
 
 ## Authors
 
-* **Michael Stephens** - *Initial work*
+- **Michael Stephens** - _Initial work_
 
 ## License
 
@@ -28,4 +28,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* None
+- None
