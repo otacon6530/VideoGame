@@ -76,6 +76,7 @@ export default class Map {
       char.draw(ctx, x, y);
     });
     //Draw layer3
+    ctx.globalAlpha = 0.4;
     ctx.drawImage(this.layer3, this.GS - x, this.GS - y);
   }
   /**

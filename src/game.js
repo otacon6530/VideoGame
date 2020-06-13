@@ -27,9 +27,9 @@ export default class Game {
     new InputHandler(this);
     this.menu = new Menu(this, "test");
     this.map = new Map(this, "test");
-    let char = new Character(this, "king", 8, 9, DOWN, "", "hi");
+    let char = new Character(this, "king", 3, 3, DOWN, "", "hi");
     this.map.addCharacter(char);
-    this.player = new Player(this, "player", 8, 8, DOWN, "", "hi");
+    this.player = new Player(this, "player", 3, 4, DOWN, "", "hi");
     this.map.addCharacter(this.player);
   }
   update(deltaTime) {
