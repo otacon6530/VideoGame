@@ -3,6 +3,7 @@ import Player from "./player.js";
 import Map from "./map.js";
 import InputHandler from "./input.js";
 import Menu from "./menu.js";
+import Debug from "./debug.js";
 
 const DOWN = 0;
 
@@ -31,11 +32,13 @@ export default class Game {
     this.map.addCharacter(char);
     this.player = new Player(this, "player", 3, 4, DOWN, "", "hi");
     this.map.addCharacter(this.player);
+    this.debug = new Debug(this);
   }
   update(deltaTime) {
     if (this.gamestate === GAMESTATE.RUNNING) {
       this.player.activeKey = this.activeKey;
       this.map.update(this, deltaTime);
+      this.debug.update(this.player);
     } else {
       this.menu.update(this);
     }
@@ -46,6 +49,7 @@ export default class Game {
       let x = this.player.px - this.gameWidth / 2;
       let y = this.player.py - this.gameHeight / 2;
       this.map.draw(ctx, x, y);
+      this.debug.draw(ctx);
     } else {
       this.menu.draw(ctx);
     }

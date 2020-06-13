@@ -28,7 +28,7 @@ export default class Menu {
     ctx.globalAlpha = (this.frame % 100) / 100;
     ctx.fillText(
       "Press Enter to Start",
-      this.gameWidth / 2 - 100,
+      this.gameWidth / 2 - ctx.measureText("Press Enter to Start").width / 2,
       this.gameHeight / 2
     );
     ctx.globalAlpha = 1;
@@ -51,7 +51,7 @@ export default class Menu {
   update(game) {
     if (game.activeKey === 13) {
       game.gamestate = GAMESTATE.RUNNING;
-      game.sound = new SoundHandler("music/castle.mp3");
+      game.sound = new SoundHandler("music/Lupa.mp3");
       game.sound.play();
     }
   }
