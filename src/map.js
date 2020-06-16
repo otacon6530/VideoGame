@@ -44,6 +44,7 @@ export default class Map {
     //this.character = map.character;
     this.collision = map.collision;
     this.defaultcollision = map.defaultcollision;
+    this.events = map.defaultcollision;
     this.name = map.name;
   }
 

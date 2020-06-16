@@ -50,7 +50,7 @@ export default class Menu {
   }
   update(game) {
     if (game.activeKey === 13) {
-      game.gamestate = GAMESTATE.RUNNING;
+      game.startRunning();
       game.sound = new SoundHandler("music/Lupa.mp3");
       game.sound.play();
     }

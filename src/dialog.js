@@ -1,18 +1,23 @@
 export default class Dialog {
-  constructor() {}
-  update(char) {}
-  draw(ctx, game) {
+  constructor(game) {
+    this.msg = "";
+    this.gameWidth = game.gameWidth;
+    this.gameHeight = game.gameHeight;
+  }
+  update(game) {
+    if (game.activeKey === 13) {
+      game.startRunning();
+    }
+  }
+  draw(ctx) {
     ctx.globalAlpha = 0.4;
     ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, this.gameWidth, 100);
+    ctx.fillRect(0, this.gameHeight - 75, this.gameWidth, 100);
     ctx.globalAlpha = 1;
     ctx.fillStyle = "white";
     ctx.font = "20px Arial";
-    ctx.fillText(
-      "position: (" + this.playerX + "," + this.playerY + ")",
-      50,
-      40
-    );
+    console.log(ctx.measureText(this.msg).height);
+    ctx.fillText(this.msg, 40, this.gameHeight - 50);
     ctx.globalAlpha = 1;
   }
 }

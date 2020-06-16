@@ -4,12 +4,15 @@ import Map from "./map.js";
 import InputHandler from "./input.js";
 import Menu from "./menu.js";
 import Debug from "./debug.js";
+import Dialog from "./dialog.js";
 
 const DOWN = 0;
 
 const GAMESTATE = {
   RUNNING: 0,
-  MAINMENU: 1
+  MAINMENU: 1,
+  PAUSE: 2,
+  DIALOG: 3
 };
 
 export default class Game {
@@ -28,33 +31,62 @@ export default class Game {
     new InputHandler(this);
     this.menu = new Menu(this, "test");
     this.map = new Map(this, "test");
-    let char = new Character(this, "king", 3, 3, DOWN, "", "hi");
+    let char = new Character(
+      this,
+      "king",
+      3,
+      3,
+      DOWN,
+      "",
+      "hihhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkklllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllfffffffffffffffffffffffffffffffffffffffffffffffff"
+    );
     this.map.addCharacter(char);
-    this.player = new Player(this, "player", 3, 4, DOWN, "", "hi");
+    this.player = new Player(this, "player", 3, 4, DOWN, "", "");
     this.map.addCharacter(this.player);
     this.debug = new Debug(this);
+    this.dialog = new Dialog(this);
   }
   update(deltaTime) {
     if (this.gamestate === GAMESTATE.RUNNING) {
       this.player.activeKey = this.activeKey;
       this.map.update(this, deltaTime);
       this.debug.update(this.player);
-    } else {
+    } else if (this.gamestate === GAMESTATE.DIALOG) {
+      this.dialog.update(this);
+    } else if (this.gamestate === GAMESTATE.MAINMENU) {
       this.menu.update(this);
     }
   }
   draw(ctx) {
-    this.menu.draw(ctx);
-    if (this.gamestate === GAMESTATE.RUNNING) {
+    if (
+      this.gamestate === GAMESTATE.RUNNING ||
+      this.gamestate === GAMESTATE.DIALOG
+    ) {
       let x = this.player.px - this.gameWidth / 2;
       let y = this.player.py - this.gameHeight / 2;
       this.map.draw(ctx, x, y);
       this.debug.draw(ctx);
-    } else {
+      if (this.gamestate === GAMESTATE.DIALOG) {
+        this.dialog.draw(ctx);
+      }
+    } else if (this.gamestate === GAMESTATE.MAINMENU) {
       this.menu.draw(ctx);
     }
   }
   div(a, b) {
     return Math.round(a / b - 0.5);
+  }
+  startRunning() {
+    if (this.gamestate !== GAMESTATE.RUNNING) {
+      this.activeKey = null;
+      this.gamestate = GAMESTATE.RUNNING;
+    }
+  }
+  startDialog(message) {
+    this.dialog.msg = message;
+    if (this.gamestate !== GAMESTATE.DIALOG) {
+      this.activeKey = null;
+      this.gamestate = GAMESTATE.DIALOG;
+    }
   }
 }
