@@ -31,15 +31,7 @@ export default class Game {
     new InputHandler(this);
     this.menu = new Menu(this, "test");
     this.map = new Map(this, "test");
-    let char = new Character(
-      this,
-      "king",
-      3,
-      3,
-      DOWN,
-      "",
-      "hihhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkklllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllfffffffffffffffffffffffffffffffffffffffffffffffff"
-    );
+    let char = new Character(this, "king", 3, 3, DOWN, "", "I am the KING!");
     this.map.addCharacter(char);
     this.player = new Player(this, "player", 3, 4, DOWN, "", "");
     this.map.addCharacter(this.player);
