@@ -5,6 +5,7 @@ export default class Dialog {
     this.gameHeight = game.gameHeight;
   }
   update(game) {
+    //Trigger when key is released.
     if (game.activeKey === 13) {
       game.startRunning();
     }

@@ -36,6 +36,8 @@ export default class Player extends Character {
       this.moveStart(DOWN, map);
     } else if (this.activeKey === 13) {
       this.interact(map, this.game);
+    } else if (this.activeKey === 69) {
+      this.game.startEditor();
     }
   }
   interact(map, game) {
