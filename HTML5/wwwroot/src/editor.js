@@ -1,11 +1,4 @@
-const COMMAND = {
-    UP: 3,
-    DOWN: 0,
-    LEFT: 1,
-    RIGHT: 2,
-    ACTION: 4,
-    CANCEL: 5
-};
+import { COMMAND } from "./global.js";
 export default class Editor {
   constructor(game) {
     this.map = game.map;

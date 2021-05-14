@@ -1,11 +1,8 @@
-const COMMAND = {
-    UP: 3,
-    DOWN: 0,
-    LEFT: 1,
-    RIGHT: 2,
-    ACTION: 4,
-    CANCEL: 5
-};
+/**
+  * @author Michael Stephens
+  * @desc Takes keyboard input and translates it to a command accepted by the game.
+*/
+import { COMMAND } from "./global.js";
 export default class KeyBoardHandler {
     constructor(inputHandler) {
         this.keysPressed = {};

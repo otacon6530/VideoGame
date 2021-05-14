@@ -6,15 +6,7 @@ import Menu from "./menu.js";
 import Debug from "./debug.js";
 import Dialog from "./dialog.js";
 import Editor from "./editor.js";
-
-const COMMAND = {
-    UP: 3,
-    DOWN: 0,
-    LEFT: 1,
-    RIGHT: 2,
-    ACTION: 4,
-    CANCEL: 5
-};
+import { COMMAND } from "./global.js";
 
 const GAMESTATE = {
   RUNNING: 0,

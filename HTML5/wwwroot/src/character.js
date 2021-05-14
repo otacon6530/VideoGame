@@ -1,9 +1,6 @@
 const MOVE = 1;
 const PROB_MOVE = 0.1;
-const DOWN = 0;
-const LEFT = 1;
-const RIGHT = 2;
-const UP = 3;
+import { COMMAND } from "./global.js";
 export default class Character {
   constructor(game, name, x, y, dir, movetype, message) {
     this.name = name;
@@ -75,32 +72,32 @@ export default class Character {
     }
 
   moveStart(dir, map) {
-    if (dir === LEFT) {
-      this.direction = LEFT;
+    if (dir === COMMAND.LEFT) {
+        this.direction = COMMAND.LEFT;
       if (map.collisionCheck(this.x - 1, this.y)) {
         this.vx = -this.speed;
         this.vy = 0;
         this.moving = true;
         map.resetCollision(this.x, this.y);
       }
-    } else if (dir === UP) {
-      this.direction = UP;
+    } else if (dir === COMMAND.UP) {
+        this.direction = COMMAND.UP;
       if (map.collisionCheck(this.x, this.y - 1)) {
         this.vx = 0;
         this.vy = -this.speed;
         this.moving = true;
         map.resetCollision(this.x, this.y);
       }
-    } else if (dir === RIGHT) {
-      this.direction = RIGHT;
+    } else if (dir === COMMAND.RIGHT) {
+        this.direction = COMMAND.RIGHT;
       if (map.collisionCheck(this.x + 1, this.y)) {
         this.vx = this.speed;
         this.vy = 0;
         this.moving = true;
         map.resetCollision(this.x, this.y);
       }
-    } else if (dir === DOWN) {
-      this.direction = DOWN;
+    } else if (dir === COMMAND.DOWN) {
+        this.direction = COMMAND.DOWN;
       if (map.collisionCheck(this.x, this.y + 1)) {
         this.vx = 0;
         this.vy = this.speed;

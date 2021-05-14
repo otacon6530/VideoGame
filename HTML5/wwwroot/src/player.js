@@ -1,12 +1,5 @@
 import Character from "./character.js";
-const COMMAND = {
-    UP: 3,
-    DOWN: 0,
-    LEFT: 1,
-    RIGHT: 2,
-    ACTION: 4,
-    CANCEL: 5
-};
+import { COMMAND } from "./global.js";
 export default class Player extends Character {
   // Player is a subclass of Character
   constructor(game, input, name, x, y, dir) {

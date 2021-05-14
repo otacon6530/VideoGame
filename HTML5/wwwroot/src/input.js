@@ -1,12 +1,11 @@
+/**
+ * @author Michael Stephens
+ * @desc Takes input from each source and applies continous or single activations
+ *       UP, Down, RIGH, LEFT commands are continous
+ *       Action and Cancel commands are single activation
+*/
+import { COMMAND } from "./global.js";
 import KeyBoardHandler from "./input.keyboard.js";
-const COMMAND = {
-    UP: 3,
-    DOWN: 0,
-    LEFT: 1,
-    RIGHT: 2,
-    ACTION: 4,
-    CANCEL: 5
-};
 export default class InputHandler {
     constructor(game) {
         this.activeKey = null;

@@ -1,15 +1,8 @@
 import SoundHandler from "./sound.js";
+import { COMMAND } from "./global.js";
 const GAMESTATE = {
   RUNNING: 0,
   MAINMENU: 1
-};
-const COMMAND = {
-    UP: 3,
-    DOWN: 0,
-    LEFT: 1,
-    RIGHT: 2,
-    ACTION: 4,
-    CANCEL: 5
 };
 export default class Menu {
   constructor(game, name) {
