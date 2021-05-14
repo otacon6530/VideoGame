@@ -7,7 +7,14 @@ import Debug from "./debug.js";
 import Dialog from "./dialog.js";
 import Editor from "./editor.js";
 
-const DOWN = 0;
+const COMMAND = {
+    UP: 3,
+    DOWN: 0,
+    LEFT: 1,
+    RIGHT: 2,
+    ACTION: 4,
+    CANCEL: 5
+};
 
 const GAMESTATE = {
   RUNNING: 0,
@@ -27,22 +34,23 @@ export default class Game {
     this.imageLocation = "images/";
     this.activeKey = null;
     this.player = {};
-
+      this.InputHandler = {};
   }
-  start() {
-    this.gamestate = GAMESTATE.MAINMENU;
-    new InputHandler(this);
+    start() {
+        this.gamestate = GAMESTATE.MAINMENU;
+    this.InputHandler = new InputHandler(this);
     this.menu = new Menu(this, "test");
     this.map = new Map(this, "test");
-    let char = new Character(this, "king", 3, 3, DOWN, "", "I am the KING!");
+    let char = new Character(this, "king", 3, 3, COMMAND.DOWN, "", "I am the KING!");
     this.map.addCharacter(char);
-    this.player = new Player(this, "player", 3, 4, DOWN, "", "");
+        this.player = new Player(this, "player", 3, 4, COMMAND.DOWN, "", "");
     this.map.addCharacter(this.player);
     this.debug = new Debug(this);
     this.dialog = new Dialog(this);
     this.editor = new Editor(this);
   }
-  update(deltaTime) {
+    update(deltaTime) {
+        this.activeKey = this.InputHandler.getKey(this.activeKey);
       if (this.gamestate === GAMESTATE.RUNNING) {
           this.player.activeKey = this.activeKey;
           this.map.update(this, deltaTime);

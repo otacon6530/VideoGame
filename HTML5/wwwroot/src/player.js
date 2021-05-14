@@ -1,13 +1,17 @@
 import Character from "./character.js";
-const DOWN = 0;
-const LEFT = 1;
-const RIGHT = 2;
-const UP = 3;
+const COMMAND = {
+    UP: 3,
+    DOWN: 0,
+    LEFT: 1,
+    RIGHT: 2,
+    ACTION: 4,
+    CANCEL: 5
+};
 export default class Player extends Character {
   // Player is a subclass of Character
   constructor(game, input, name, x, y, dir) {
     super(game, input, name, x, y, dir);
-    this.activeKey = input.activeKey;
+    this.activeKey = game.activeKey;
     this.frame = 0;
     this.GS = game.GS;
   }
@@ -26,27 +30,21 @@ export default class Player extends Character {
       }
     }
     // activeKey defined at main.js
-    if (this.activeKey === 37 || this.activeKey === 65) {
-      this.moveStart(LEFT, map);
-    } else if (this.activeKey === 38 || this.activeKey === 87) {
-      this.moveStart(UP, map);
-    } else if (this.activeKey === 39 || this.activeKey === 68) {
-      this.moveStart(RIGHT, map);
-    } else if (this.activeKey === 40 || this.activeKey === 83) {
-      this.moveStart(DOWN, map);
-    } else if (this.activeKey === 13) {
+      if (this.activeKey === COMMAND.LEFT || this.activeKey === COMMAND.UP || this.activeKey === COMMAND.DOWN || this.activeKey === COMMAND.RIGHT) {
+      this.moveStart(this.activeKey, map);
+    } else if (this.activeKey === COMMAND.ACTION) {
       this.interact(map, this.game);
     }
   }
   interact(map, game) {
     let char;
-    if (this.direction === LEFT) {
+      if (this.direction === COMMAND.LEFT) {
       char = map.charCollisionCheck(this.x - 1, this.y);
-    } else if (this.direction === UP) {
+    } else if (this.direction === COMMAND.UP) {
       char = map.charCollisionCheck(this.x, this.y - 1);
-    } else if (this.direction === RIGHT) {
+    } else if (this.direction === COMMAND.RIGHT) {
       char = map.charCollisionCheck(this.x + 1, this.y);
-    } else if (this.direction === DOWN) {
+    } else if (this.direction === COMMAND.DOWN) {
       char = map.charCollisionCheck(this.x, this.y + 1);
     }
     if (typeof char !== "undefined") {

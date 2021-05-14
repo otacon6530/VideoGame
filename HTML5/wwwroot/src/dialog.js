@@ -1,3 +1,11 @@
+const COMMAND = {
+    UP: 3,
+    DOWN: 0,
+    LEFT: 1,
+    RIGHT: 2,
+    ACTION: 4,
+    CANCEL: 5
+};
 export default class Dialog {
   constructor(game) {
     this.msg = "";
@@ -5,8 +13,8 @@ export default class Dialog {
     this.gameHeight = game.gameHeight;
   }
   update(game) {
-    //Trigger when key is released.
-    if (game.activeKey === 13) {
+      //Trigger when key is released.
+      if (game.activeKey === COMMAND.ACTION) {
       game.startRunning();
     }
   }

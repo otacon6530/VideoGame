@@ -3,6 +3,14 @@ const GAMESTATE = {
   RUNNING: 0,
   MAINMENU: 1
 };
+const COMMAND = {
+    UP: 3,
+    DOWN: 0,
+    LEFT: 1,
+    RIGHT: 2,
+    ACTION: 4,
+    CANCEL: 5
+};
 export default class Menu {
   constructor(game, name) {
     this.name = name;
@@ -49,7 +57,7 @@ export default class Menu {
     }
   }
   update(game) {
-    if (game.activeKey === 13) {
+    if (game.activeKey === COMMAND.ACTION) {
       game.startRunning();
       game.sound = new SoundHandler("music/Lupa.mp3");
       game.sound.play();
