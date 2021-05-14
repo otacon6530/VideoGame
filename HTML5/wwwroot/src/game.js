@@ -55,7 +55,7 @@ export default class Game {
           this.player.activeKey = this.activeKey;
           this.map.update(this, deltaTime);
           this.debug.update(this.player);
-          if (this.activeKey === 27) {
+          if (this.activeKey === COMMAND.CANCEL) {
               this.gamestate = GAMESTATE.EDITOR;
           }
       } else if (this.gamestate === GAMESTATE.DIALOG) {
@@ -64,7 +64,7 @@ export default class Game {
           this.menu.update(this);
       } else if (this.gamestate === GAMESTATE.EDITOR) {
           this.editor.update(this);
-          if(this.activeKey === 27) {
+          if (this.activeKey === COMMAND.CANCEL) {
               this.gamestate = GAMESTATE.RUNNING;
           }
       }
