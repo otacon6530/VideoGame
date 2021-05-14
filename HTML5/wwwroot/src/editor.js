@@ -11,9 +11,16 @@ export default class Editor {
     this.map = game.map;
   }
     update(game) {
+        //controls for editor
         if (game.activeKey === COMMAND.CANCEL) {
-      game.startRunning();
+            game.startRunning();
+        }
+        
     }
-  }
-  draw(ctx) {}
+    draw(ctx) {
+       
+    }
+    startEditor() {
+
+    }
 }

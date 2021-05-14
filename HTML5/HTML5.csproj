@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\src\" />
     <Folder Include="wwwroot\music\" />
     <Folder Include="wwwroot\map\" />
     <Folder Include="wwwroot\images\" />
@@ -38,7 +37,6 @@
     <Content Remove="wwwroot\images\test.layer3.png" />
     <Content Remove="wwwroot\images\water.png" />
     <Content Remove="wwwroot\src\input %28copy%29.js" />
-    <Content Remove="wwwroot\src\input.keyboard.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\src\character.js" />

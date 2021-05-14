@@ -64,15 +64,13 @@ export default class Game {
           this.menu.update(this);
       } else if (this.gamestate === GAMESTATE.EDITOR) {
           this.editor.update(this);
-          if (this.activeKey === COMMAND.CANCEL) {
-              this.gamestate = GAMESTATE.RUNNING;
-          }
+          this.map.update(this, deltaTime);
       }
   }
   draw(ctx) {
     if (
       this.gamestate === GAMESTATE.RUNNING ||
-      this.gamestate === GAMESTATE.DIALOG
+      this.gamestate === GAMESTATE.DIALOG 
     ) {
       let x = this.player.px - this.gameWidth / 2;
       let y = this.player.py - this.gameHeight / 2;
@@ -85,9 +83,11 @@ export default class Game {
         this.menu.draw(ctx);
         this.debug.draw(ctx, this);
     } else if (this.gamestate === GAMESTATE.EDITOR) {
+        let x = this.player.px - this.gameWidth / 2;
+        let y = this.player.py - this.gameHeight / 2;
+        this.map.draw(ctx, x, y);
         this.editor.draw(ctx);
         this.debug.draw(ctx, this);
-      //this.player.draw(ctx);
     }
   }
   div(a, b) {
@@ -106,11 +106,11 @@ export default class Game {
       this.gamestate = GAMESTATE.DIALOG;
     }
   }
-  startEditor() {
+  startEditor(player) {
     if (this.gamestate !== GAMESTATE.EDITOR) {
-      this.activeKey = null;
-      this.startDialog("start editor");
-      this.gamestate = GAMESTATE.EDITOR;
+        this.activeKey = null;
+        this.gamestate = GAMESTATE.EDITOR;
+        player.UpdateImage("soldier");
     }
   }
 }

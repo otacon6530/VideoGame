@@ -22,13 +22,7 @@ export default class Character {
     this.frame = 0;
     this.message = message;
     this.GS = game.GS;
-
-    // images are class property
-    var names = ["player", "king", "minister", "soldier"];
-    for (var i = 0; i < names.length; i++) {
-      this.image = new Image();
-      this.image.src = game.imageLocation + this.name + ".png";
-    }
+    this.UpdateImage(this.name);
   }
 
   update(map, deltaTime) {
@@ -69,7 +63,16 @@ export default class Character {
       this.GS,
       this.GS
     );
-  }
+   }
+    UpdateImage(name) {
+        // images are class property
+        var names = ["player", "king", "minister", "soldier"];
+        for (var i = 0; i < names.length; i++) {
+            this.image = new Image();
+            this.image.src = this.game.imageLocation + name + ".png";
+            console.log(this.game.imageLocation + name + ".png");
+        }
+    }
 
   moveStart(dir, map) {
     if (dir === LEFT) {
