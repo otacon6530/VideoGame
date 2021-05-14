@@ -1,0 +1,30 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<nav>
+    <button onclick="startEditor();">
+        Show/Hide Editor2
+    </button><button onclick="fullscreen();">Full Screen</button>
+</nav>
+<div id="editor"></div>
+<canvas id="canvas" width="640" height="480">no canvas</canvas>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="module" src="src/index.js"></script>
+<script>function fullscreen() {
+        var elem = document.getElementById("canvas");
+        if (elem.webkitRequestFullscreen) {
+          /* Chrome, Safari and Opera */
+          elem.webkitRequestFullscreen();
+        } else if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+          /* Firefox */
+          elem.mozRequestFullScreen();
+        } else if (elem.msRequestFullscreen) {
+          /* IE/Edge */
+          elem.msRequestFullscreen();
+        }
+      }</script>

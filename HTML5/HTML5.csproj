@@ -1,0 +1,68 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\src\" />
+    <Folder Include="wwwroot\music\" />
+    <Folder Include="wwwroot\map\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\src\character.js" />
+    <Content Remove="wwwroot\src\debug.js" />
+    <Content Remove="wwwroot\src\dialog.js" />
+    <Content Remove="wwwroot\src\editor.js" />
+    <Content Remove="wwwroot\src\game.js" />
+    <Content Remove="wwwroot\src\index.js" />
+    <Content Remove="wwwroot\src\input.js" />
+    <Content Remove="wwwroot\src\map.js" />
+    <Content Remove="wwwroot\src\menu.js" />
+    <Content Remove="wwwroot\src\player.js" />
+    <Content Remove="wwwroot\src\sound.js" />
+    <Content Remove="wwwroot\music\Lupa.mp3" />
+    <Content Remove="wwwroot\map\test.map" />
+    <Content Remove="wwwroot\images\forest.png" />
+    <Content Remove="wwwroot\images\grass.png" />
+    <Content Remove="wwwroot\images\hill.png" />
+    <Content Remove="wwwroot\images\king.png" />
+    <Content Remove="wwwroot\images\minister.png" />
+    <Content Remove="wwwroot\images\mountain.png" />
+    <Content Remove="wwwroot\images\player.png" />
+    <Content Remove="wwwroot\images\soldier.png" />
+    <Content Remove="wwwroot\images\test.layer1.png" />
+    <Content Remove="wwwroot\images\test.layer1.png.old" />
+    <Content Remove="wwwroot\images\test.layer3.png" />
+    <Content Remove="wwwroot\images\water.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\src\character.js" />
+    <None Include="wwwroot\src\debug.js" />
+    <None Include="wwwroot\src\dialog.js" />
+    <None Include="wwwroot\src\editor.js" />
+    <None Include="wwwroot\src\game.js" />
+    <None Include="wwwroot\src\index.js" />
+    <None Include="wwwroot\src\input.js" />
+    <None Include="wwwroot\src\map.js" />
+    <None Include="wwwroot\src\menu.js" />
+    <None Include="wwwroot\src\player.js" />
+    <None Include="wwwroot\src\sound.js" />
+    <None Include="wwwroot\music\Lupa.mp3" />
+    <None Include="wwwroot\map\test.map" />
+    <None Include="wwwroot\images\forest.png" />
+    <None Include="wwwroot\images\grass.png" />
+    <None Include="wwwroot\images\hill.png" />
+    <None Include="wwwroot\images\king.png" />
+    <None Include="wwwroot\images\minister.png" />
+    <None Include="wwwroot\images\mountain.png" />
+    <None Include="wwwroot\images\player.png" />
+    <None Include="wwwroot\images\soldier.png" />
+    <None Include="wwwroot\images\test.layer1.png" />
+    <None Include="wwwroot\images\test.layer1.png.old" />
+    <None Include="wwwroot\images\test.layer3.png" />
+    <None Include="wwwroot\images\water.png" />
+  </ItemGroup>
+</Project>
