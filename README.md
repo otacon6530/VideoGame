@@ -4,7 +4,7 @@ A game engine for 2d RPG game working through HTML5 Canvas and Javascript
 
 ## Getting Started
 
-Copy code to website and open index.html
+Copy code to website and open Pages>index.cshtml
 
 ### Prerequisites
 
@@ -12,11 +12,11 @@ None
 
 ### Installing
 
-Copy contents of game folder to webserver.
+Copy to webserver.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+Not currently decied
 
 ## Authors
 
