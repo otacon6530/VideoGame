@@ -23,7 +23,6 @@
     <Content Remove="wwwroot\src\player.js" />
     <Content Remove="wwwroot\src\sound.js" />
     <Content Remove="wwwroot\music\Lupa.mp3" />
-    <Content Remove="wwwroot\map\test.map" />
     <Content Remove="wwwroot\images\forest.png" />
     <Content Remove="wwwroot\images\grass.png" />
     <Content Remove="wwwroot\images\hill.png" />
@@ -37,6 +36,7 @@
     <Content Remove="wwwroot\images\test.layer3.png" />
     <Content Remove="wwwroot\images\water.png" />
     <Content Remove="wwwroot\src\input %28copy%29.js" />
+    <Content Remove="wwwroot\map\test.map,old" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\src\character.js" />
@@ -51,7 +51,6 @@
     <None Include="wwwroot\src\player.js" />
     <None Include="wwwroot\src\sound.js" />
     <None Include="wwwroot\music\Lupa.mp3" />
-    <None Include="wwwroot\map\test.map" />
     <None Include="wwwroot\images\forest.png" />
     <None Include="wwwroot\images\grass.png" />
     <None Include="wwwroot\images\hill.png" />
