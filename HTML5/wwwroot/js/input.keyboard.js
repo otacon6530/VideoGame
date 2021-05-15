@@ -36,7 +36,7 @@ export default class KeyBoardHandler {
             return COMMAND.DOWN;
         } else if (key === 13) {
             return COMMAND.ACTION;
-        } else if (key === 27) {
+        } else if (key === 8) {
             return COMMAND.CANCEL;
         }
     }
