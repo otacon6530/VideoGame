@@ -2,23 +2,23 @@
  * @author Michael Stephens
  * @desc manages objects related to the editor
 */
-import { COMMAND } from "./global.js";
+import { COMMAND, GAMESTATE } from "./global.js";
 export default class Editor {
   constructor(game) {
-    this.map = game.map;
+      game.activeKey = null;
+      game.gamestate = GAMESTATE.EDITOR;
   }
     update(game) {
-        //controls for editor
+        this.commandTrigger(game);
+    }
+    draw(ctx) {
+
+    }
+
+    commandTrigger(game) {
         if (game.activeKey === COMMAND.CANCEL) {
             game.startRunning();
             game.map.save("test");
         }
-        
-    }
-    draw(ctx) {
-       
-    }
-    startEditor() {
-
     }
 }

@@ -9,7 +9,6 @@ let HEIGHT = canvas.height;
 
 let lastTime = null;
 let game = new Game(WIDTH, HEIGHT);
-game.start();
 
 function gameLoop(timestamp) {
   let deltaTime = timestamp - lastTime;

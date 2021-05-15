@@ -6,45 +6,34 @@ import Character from "./character.js";
 import Player from "./player.js";
 import Map from "./map.js";
 import InputHandler from "./input.js";
-import Menu from "./menu.js";
+import MenuState from "./menuState.js";
 import Debug from "./debug.js";
 import Dialog from "./dialog.js";
 import Editor from "./editor.js";
-import { COMMAND } from "./global.js";
-
-const GAMESTATE = {
-    RUNNING: 0,
-    MAINMENU: 1,
-    PAUSE: 2,
-    DIALOG: 3,
-    EDITOR: 4
-};
+import { COMMAND, GAMESTATE } from "./global.js";
+import SoundHandler from "./sound.js";
 
 export default class Game {
     constructor(gameWidth, gameHeight) {
         this.GS = 32;
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
-        this.objects = {};
+        this.drawObjects = {};
+        this.updateObjects = {};
         this.mapLocation = "map/";
         this.imageLocation = "images/";
         this.activeKey = null;
         this.player = {};
         this.InputHandler = {};
-    }
-    start() {
-        this.gamestate = GAMESTATE.MAINMENU; //Start at the main menu
-        //Initialize all objects
-        this.InputHandler = new InputHandler(this); 
-        this.menu = new Menu(this, "test");
         this.map = new Map(this, "test");
+        this.debug = new Debug(this);
+        this.dialog = new Dialog(this);
+        this.InputHandler = new InputHandler(this);
         let char = new Character(this, "king", 3, 3, COMMAND.DOWN, "", "I am the KING!");
         this.map.addCharacter(char);
         this.player = new Player(this, "player", 3, 4, COMMAND.DOWN, "", "");
         this.map.addCharacter(this.player);
-        this.debug = new Debug(this);
-        this.dialog = new Dialog(this);
-        this.editor = new Editor(this);
+        this.menu = new MenuState(this, "test");
     }
     update(deltaTime) {
         this.activeKey = this.InputHandler.getKey(this.activeKey);
@@ -54,7 +43,7 @@ export default class Game {
                 this.map.update(this, deltaTime);
                 this.debug.update(this.player);
                 if (this.activeKey === COMMAND.CANCEL) {
-                    this.gamestate = GAMESTATE.EDITOR;
+                    this.startEditor();
                 }
                 break;
             case GAMESTATE.DIALOG:
@@ -84,8 +73,7 @@ export default class Game {
                 this.dialog.draw(ctx);
                 break;
             case GAMESTATE.MAINMENU:
-                this.menu.draw(ctx);
-                this.debug.draw(ctx, this);
+                this.menu.draw(ctx, this);
                 break;
             case GAMESTATE.EDITOR:
                 this.map.draw(ctx, x, y);
@@ -101,6 +89,8 @@ export default class Game {
         if (this.gamestate !== GAMESTATE.RUNNING) {
             this.activeKey = null;
             this.gamestate = GAMESTATE.RUNNING;
+            this.sound = new SoundHandler("music/Lupa.mp3");
+            this.sound.play();
         }
     }
     startDialog(message) {
@@ -110,10 +100,9 @@ export default class Game {
             this.gamestate = GAMESTATE.DIALOG;
         }
     }
-    startEditor(player) {
+    startEditor() {
         if (this.gamestate !== GAMESTATE.EDITOR) {
-            this.activeKey = null;
-            this.gamestate = GAMESTATE.EDITOR;
+            this.editor = new Editor(this);
         }
     }
 }
