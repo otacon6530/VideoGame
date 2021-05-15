@@ -11,17 +11,6 @@
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="wwwroot\src\character.js" />
-    <Content Remove="wwwroot\src\debug.js" />
-    <Content Remove="wwwroot\src\dialog.js" />
-    <Content Remove="wwwroot\src\editor.js" />
-    <Content Remove="wwwroot\src\game.js" />
-    <Content Remove="wwwroot\src\index.js" />
-    <Content Remove="wwwroot\src\input.js" />
-    <Content Remove="wwwroot\src\map.js" />
-    <Content Remove="wwwroot\src\menu.js" />
-    <Content Remove="wwwroot\src\player.js" />
-    <Content Remove="wwwroot\src\sound.js" />
     <Content Remove="wwwroot\music\Lupa.mp3" />
     <Content Remove="wwwroot\images\forest.png" />
     <Content Remove="wwwroot\images\grass.png" />
@@ -37,19 +26,19 @@
     <Content Remove="wwwroot\images\water.png" />
     <Content Remove="wwwroot\src\input %28copy%29.js" />
     <Content Remove="wwwroot\map\test.map,old" />
+    <Content Remove="wwwroot\js\character.js" />
+    <Content Remove="wwwroot\js\debug.js" />
+    <Content Remove="wwwroot\js\dialog.js" />
+    <Content Remove="wwwroot\js\editor.js" />
+    <Content Remove="wwwroot\js\game.js" />
+    <Content Remove="wwwroot\js\index.js" />
+    <Content Remove="wwwroot\js\input.js" />
+    <Content Remove="wwwroot\js\map.js" />
+    <Content Remove="wwwroot\js\menu.js" />
+    <Content Remove="wwwroot\js\player.js" />
+    <Content Remove="wwwroot\js\sound.js" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="wwwroot\src\character.js" />
-    <None Include="wwwroot\src\debug.js" />
-    <None Include="wwwroot\src\dialog.js" />
-    <None Include="wwwroot\src\editor.js" />
-    <None Include="wwwroot\src\game.js" />
-    <None Include="wwwroot\src\index.js" />
-    <None Include="wwwroot\src\input.js" />
-    <None Include="wwwroot\src\map.js" />
-    <None Include="wwwroot\src\menu.js" />
-    <None Include="wwwroot\src\player.js" />
-    <None Include="wwwroot\src\sound.js" />
     <None Include="wwwroot\music\Lupa.mp3" />
     <None Include="wwwroot\images\forest.png" />
     <None Include="wwwroot\images\grass.png" />
@@ -63,5 +52,16 @@
     <None Include="wwwroot\images\test.layer1.png.old" />
     <None Include="wwwroot\images\test.layer3.png" />
     <None Include="wwwroot\images\water.png" />
+    <None Include="wwwroot\js\character.js" />
+    <None Include="wwwroot\js\debug.js" />
+    <None Include="wwwroot\js\dialog.js" />
+    <None Include="wwwroot\js\editor.js" />
+    <None Include="wwwroot\js\game.js" />
+    <None Include="wwwroot\js\index.js" />
+    <None Include="wwwroot\js\input.js" />
+    <None Include="wwwroot\js\map.js" />
+    <None Include="wwwroot\js\menu.js" />
+    <None Include="wwwroot\js\player.js" />
+    <None Include="wwwroot\js\sound.js" />
   </ItemGroup>
 </Project>
