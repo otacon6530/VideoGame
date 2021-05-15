@@ -1,3 +1,7 @@
+/**
+ * @author Michael Stephens
+ * @desc Game file that controls the communication between the different objects of the game.
+*/
 import Character from "./character.js";
 import Player from "./player.js";
 import Map from "./map.js";
@@ -29,8 +33,9 @@ export default class Game {
         this.InputHandler = {};
     }
     start() {
-        this.gamestate = GAMESTATE.MAINMENU;
-        this.InputHandler = new InputHandler(this);
+        this.gamestate = GAMESTATE.MAINMENU; //Start at the main menu
+        //Initialize all objects
+        this.InputHandler = new InputHandler(this); 
         this.menu = new Menu(this, "test");
         this.map = new Map(this, "test");
         let char = new Character(this, "king", 3, 3, COMMAND.DOWN, "", "I am the KING!");
@@ -109,7 +114,6 @@ export default class Game {
         if (this.gamestate !== GAMESTATE.EDITOR) {
             this.activeKey = null;
             this.gamestate = GAMESTATE.EDITOR;
-            player.UpdateImage("soldier");
         }
     }
 }
