@@ -1,3 +1,9 @@
+/**
+ * @author Michael Stephens
+ * @desc This is the Menu game state which dictates:
+ *       1. The controls used while the state is active.
+ *       2. What game objects will be updated/drawn and in what order.
+*/
 import { COMMAND, GAMESTATE } from "./global.js";
 
 export default class MenuState {
@@ -5,12 +11,13 @@ export default class MenuState {
         this.name = name;
         this.backGroundColor = "black";
         this.backGroundImage = new Image();
-        this.Objects = [game.debug];
+        this.updateObjects = [game.debug];
+        this.drawObjects = [game.debug];
         this.frame = 1;
         this.gameWidth = game.gameWidth;
         this.gameHeight = game.gameHeight;
-        game.gamestate = GAMESTATE.MAINMENU;
-
+        this.state = GAMESTATE.EDITOR;
+        game.activeKey = null;
     }
 
     /**
@@ -18,7 +25,7 @@ export default class MenuState {
      *
      * @param ctx canvas being drawn on
      */
-    draw(ctx,game) {
+    draw(ctx, game) {
         //Draw background
         this.frame += 1;
         ctx.drawImage(this.backGroundImage, 0, 0);
@@ -46,11 +53,12 @@ export default class MenuState {
             ctx.fillStyle = "rgba(0,0,0,0.1)";
             ctx.fillRect(0, 0, this.gameWidth, this.gameHeight);
         }
-        for (const object of this.Objects) { object.draw(ctx, game) };
+        for (const object of this.updateObjects) { object.draw(ctx, game) };
     }
-    update(game) {
+    update(game, deltaTime) {
         if (game.activeKey === COMMAND.ACTION) {
             game.startRunning();
         }
+        for (const object of this.drawObjects) { object.update(this, deltaTime) };
     }
 }

@@ -26,6 +26,7 @@
     <Content Remove="wwwroot\images\water.png" />
     <Content Remove="wwwroot\src\input %28copy%29.js" />
     <Content Remove="wwwroot\map\test.map,old" />
+    <Content Remove="wwwroot\js\menu.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\music\Lupa.mp3" />

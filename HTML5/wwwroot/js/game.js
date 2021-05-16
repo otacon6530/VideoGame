@@ -6,103 +6,119 @@ import Character from "./character.js";
 import Player from "./player.js";
 import Map from "./map.js";
 import InputHandler from "./input.js";
-import MenuState from "./menuState.js";
+import gameStateMenu from "./gameState.Menu.js";
 import Debug from "./debug.js";
-import Dialog from "./dialog.js";
-import Editor from "./editor.js";
+import gameStateDialog from "./gameState.Dialog.js";
+import dialogBox from "./dialogBox.js";
+import gameStateEditor from "./gameState.Editor.js";
+import gameStateRunning from "./gameState.Running.js";
 import { COMMAND, GAMESTATE } from "./global.js";
 import SoundHandler from "./sound.js";
 
 export default class Game {
     constructor(gameWidth, gameHeight) {
-        this.GS = 32;
-        this.gameWidth = gameWidth;
-        this.gameHeight = gameHeight;
-        this.drawObjects = {};
-        this.updateObjects = {};
+        //Configuration settings
+        this.enableDebug = true;
         this.mapLocation = "map/";
         this.imageLocation = "images/";
-        this.activeKey = null;
-        this.player = {};
-        this.InputHandler = {};
+        this.GS = 32;
+
+        //primary attributes
+        this.gameWidth = gameWidth;
+        this.gameHeight = gameHeight;
+        this.events = [];
+
+        //setup the initial map.
         this.map = new Map(this, "test");
-        this.debug = new Debug(this);
-        this.dialog = new Dialog(this);
-        this.InputHandler = new InputHandler(this);
         let char = new Character(this, "king", 3, 3, COMMAND.DOWN, "", "I am the KING!");
         this.map.addCharacter(char);
         this.player = new Player(this, "player", 3, 4, COMMAND.DOWN, "", "");
         this.map.addCharacter(this.player);
-        this.menu = new MenuState(this, "test");
-    }
-    update(deltaTime) {
-        this.activeKey = this.InputHandler.getKey(this.activeKey);
-        switch (this.gamestate) {
-            case GAMESTATE.RUNNING:
-                this.player.activeKey = this.activeKey;
-                this.map.update(this, deltaTime);
-                this.debug.update(this.player);
-                if (this.activeKey === COMMAND.CANCEL) {
-                    this.startEditor();
-                }
-                break;
-            case GAMESTATE.DIALOG:
-                this.dialog.update(this);
-                break;
-            case GAMESTATE.MAINMENU:
-                this.menu.update(this);
-                break;
-            case GAMESTATE.EDITOR:
-                this.editor.update(this);
-                this.map.update(this, deltaTime);
-                break;
-        }
+
+        //initialize primary game objects
+        this.InputHandler = new InputHandler(this);
+        this.debug = new Debug(this);
+
+        //set the starting game state
+        this.stateObject = new gameStateMenu(this, "test");
+
     }
 
-    draw(ctx) {
-        let x = this.player.px - this.gameWidth / 2;
-        let y = this.player.py - this.gameHeight / 2;
-        switch (this.gamestate) {
-            case GAMESTATE.RUNNING :
-                this.map.draw(ctx, x, y);
-                this.debug.draw(ctx, this);
-                break;
-            case GAMESTATE.DIALOG:
-                this.map.draw(ctx, x, y);
-                this.debug.draw(ctx, this);
-                this.dialog.draw(ctx);
-                break;
-            case GAMESTATE.MAINMENU:
-                this.menu.draw(ctx, this);
-                break;
-            case GAMESTATE.EDITOR:
-                this.map.draw(ctx, x, y);
-                this.editor.draw(ctx);
-                this.debug.draw(ctx, this);
-                break;
+    /**
+     * update is called by the game loop and runs the
+     * update and draw functions of the active game state.
+     *
+     * @param deltaTime not currently built out
+     * @param ctx the html canvas
+     */
+    update(deltaTime, ctx) {
+        this.activeKey = this.InputHandler.getKey(this.activeKey);
+        if (this.stateObject !== null && this.stateObject !== undefined) {
+
+            //Update the game object associated with the state
+            this.stateObject.update(this, deltaTime);
+
+            //Update the game events
+            for (const event of this.events) { event.update() };
+
+            //update the player location for the draw functions
+            this.x = this.player.px - this.gameWidth / 2;
+            this.y = this.player.py - this.gameHeight / 2;
+
+            //draw game objects associated with the state
+            this.stateObject.draw(ctx, this);
         }
     }
+    /**
+     * Start the running state
+     */
+    startRunning() {
+        if (this.stateObject.state !== GAMESTATE.RUNNING) {
+            this.stateObject = new gameStateRunning(this);
+            //this.sound = new SoundHandler("music/Lupa.mp3");
+            //this.sound.play();
+        }
+    }
+    /**
+    * start a diaolog state and create a dialog
+    *
+    * @param message
+    */
+    startDialog(message) {
+        if (this.stateObject.state !== GAMESTATE.DIALOG) {
+            this.stateObject = new gameStateDialog(this, message);
+        }
+    }
+    /**
+     * start the editor state
+     */
+    startEditor() {
+        if (this.stateObject.state !== GAMESTATE.EDITOR) {
+            this.stateObject = new gameStateEditor(this);
+        }
+    }
+    /**
+     * start the menu state
+     */
+    startMenu() {
+        if (this.stateObject.state !== GAMESTATE.MAINMENU) {
+            this.stateObject = new gameStateMenu(this, "test");
+        }
+    }
+    /**
+     * create a calculation to calculate the nearest square
+     * @param a numerator
+     * @param b denominator
+     */
     div(a, b) {
         return Math.round(a / b - 0.5);
     }
-    startRunning() {
-        if (this.gamestate !== GAMESTATE.RUNNING) {
-            this.activeKey = null;
-            this.gamestate = GAMESTATE.RUNNING;
-            this.sound = new SoundHandler("music/Lupa.mp3");
-            this.sound.play();
-        }
-    }
-    startDialog(message) {
-        this.dialog.msg = message;
-        if (this.gamestate !== GAMESTATE.DIALOG) {
-            this.activeKey = null;
-            this.gamestate = GAMESTATE.DIALOG;
-        }
-    }
-    startEditor() {
-        if (this.gamestate !== GAMESTATE.EDITOR) {
-            this.editor = new Editor(this);
-        }
+
+    /**
+     * add events to the event array
+     * @param events an array of events
+     */
+    addEvent(events) {
+        for (const event of events) { this.events.push(event); };
     }
 }

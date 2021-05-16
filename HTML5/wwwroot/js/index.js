@@ -11,10 +11,9 @@ let lastTime = null;
 let game = new Game(WIDTH, HEIGHT);
 
 function gameLoop(timestamp) {
-  let deltaTime = timestamp - lastTime;
-  lastTime = timestamp;
-  game.update(deltaTime);
-  game.draw(ctx);
-  requestAnimationFrame(gameLoop);
+    let deltaTime = timestamp - lastTime;
+    lastTime = timestamp;
+    game.update(deltaTime, ctx);
+    requestAnimationFrame(gameLoop);
 }
 gameLoop();

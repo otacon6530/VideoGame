@@ -86,7 +86,7 @@ export default class Map {
      *
      * @param deltaTime
      */
-    update(deltaTime) {
+    update(game, deltaTime) {
         //Draw Characters
         this.character.forEach(char => {
             char.update(this, deltaTime);
@@ -99,7 +99,9 @@ export default class Map {
      * @param x position of player on map
      * @param y position of player on map
      */
-    draw(ctx, x, y) {
+    draw(ctx, game) {
+        var x = game.x;
+        var y = game.y;
         //Draw background backfill image
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, this.gameWidth, this.gameHeight);
