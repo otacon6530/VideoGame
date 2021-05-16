@@ -11,8 +11,8 @@ export default class Map {
         this.layer1 = new Image();
         this.layer3 = new Image();
         this.character = [];
-        this.collision = [[]];
-        this.defaultcollision = [[]];
+        this.collision = [];
+        this.defaultcollision = [];
         this.name = name;
         this.gameWidth = game.gameWidth;
         this.gameHeight = game.gameHeight;

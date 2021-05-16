@@ -1,0 +1,7 @@
+﻿{
+  "enableDebug": true,
+  "enableEditor": true,
+  "mapLocation": "map/",
+  "imageLocation": "images/",
+  "GS": 32
+}

@@ -17,11 +17,20 @@ import SoundHandler from "./sound.js";
 
 export default class Game {
     constructor(gameWidth, gameHeight) {
-        //Configuration settings
-        this.enableDebug = true;
-        this.mapLocation = "map/";
-        this.imageLocation = "images/";
-        this.GS = 32;
+
+        //Pull game configuration
+        var httpObj = $.ajax({
+            url: "config.json",
+            async: false // synchronous (wait until file is loaded)
+        });
+        var config = JSON.parse(httpObj.responseText);
+        this.enableDebug = config.enableDebug;
+        this.enableEditor = config.enableEditor;
+        this.mapLocation = config.mapLocation;
+        this.imageLocation = config.imageLocation;
+        this.GS = config.GS;
+
+        console.log(config.enableDebug);
 
         //primary attributes
         this.gameWidth = gameWidth;
@@ -93,7 +102,7 @@ export default class Game {
      * start the editor state
      */
     startEditor() {
-        if (this.stateObject.state !== GAMESTATE.EDITOR) {
+        if (this.stateObject.state !== GAMESTATE.EDITOR && this.enableEditor) {
             this.stateObject = new gameStateEditor(this);
         }
     }
