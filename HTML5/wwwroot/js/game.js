@@ -14,6 +14,7 @@ import gameStateEditor from "./gameState.Editor.js";
 import gameStateRunning from "./gameState.Running.js";
 import { COMMAND, GAMESTATE } from "./global.js";
 import SoundHandler from "./sound.js";
+import Calendar from "./calendar.js";
 
 export default class Game {
     constructor(gameWidth, gameHeight) {
@@ -29,6 +30,7 @@ export default class Game {
         this.mapLocation = config.mapLocation;
         this.imageLocation = config.imageLocation;
         this.GS = config.GS;
+        this.clock = new Calendar(new Date(1995, 11, 17, 3, 24, 0));
 
         console.log(config.enableDebug);
 
@@ -77,6 +79,7 @@ export default class Game {
             //draw game objects associated with the state
             this.stateObject.draw(ctx, this);
         }
+        this.clock.update();
     }
     /**
      * Start the running state
