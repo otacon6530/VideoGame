@@ -19,7 +19,7 @@ export default class Debug{
             ctx.fillStyle = "white";
             ctx.font = "20px Arial";
             ctx.fillText(
-                "position: (" + this.playerX + "," + this.playerY + ")\nGameState: " + game.gamestate + "Action:" + game.activeKey+" clock:"+game.clock.time.toString(),
+                "position: (" + this.playerX + "," + this.playerY + ")\nGameState: " + game.gamestate + "Action:" + game.activeKey+" clock:"+game.clock.hour,
                 50,
                 40
             );

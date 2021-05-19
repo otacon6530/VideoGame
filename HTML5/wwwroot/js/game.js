@@ -30,7 +30,7 @@ export default class Game {
         this.mapLocation = config.mapLocation;
         this.imageLocation = config.imageLocation;
         this.GS = config.GS;
-        this.clock = new Calendar(new Date(1995, 11, 17, 3, 24, 0));
+        this.clock = new Calendar(4,30,23);
 
         console.log(config.enableDebug);
 
